@@ -1,24 +1,19 @@
-# README
+The following steps will get this project up and running.
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## System dependencies
+Ruby 2.5.1+, Postgresql 10+
 
-Things you may want to cover:
+Assuming you have ruby installed, run `bundle install`
 
-* Ruby version
 
-* System dependencies
+## Local database creation & (re-)initialization
+If you don't care what the databases are named, just run the command below. Otherwise, first set ENV vars for `BITS_DATABASE_DEVELOPMENT` and `BITS_DATABASE_TEST`, then run command.
 
-* Configuration
+`rails db:reset; rails db:migrate; rails db:migrate RAILS_ENV=test`
 
-* Database creation
 
-* Database initialization
+## Running tests
+Just run `rspec`, or `rspec spec/models` or the like to run a subset of tests.
 
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
 
 * Deployment instructions
-
-* ...
