@@ -23,6 +23,7 @@ gem 'puma', '~> 3.7'
 
 group :development, :test do
   gem 'byebug'
+  gem 'faker'
 end
 
 group :development do
@@ -32,6 +33,5 @@ group :development do
 end
 
 group :test do
-  gem 'faker'
   gem 'rspec-rails'
 end
