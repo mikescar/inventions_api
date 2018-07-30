@@ -1,21 +1,32 @@
 require "rails_helper"
 
-RSpec.describe Invention, :type => :model do
-  # Knowing that rails won't try to save if validation fails, check the .valid? behavior
-  #   This is also enforced at the DB level, and that could be tested by checking .save and expected errors
+RSpec.describe Invention, type: :model do
+  let(:bit) { Bit.new(name: %w(bargraph bend-sensor branch bright-led button buzzer coin-battery).sample) }
+
+  # Knowing that rails won't try to save if validation fails, just check the .valid? behavior
+  #   This is also enforced at the DB level, could test against .save/.save! behavior
   context 'validations' do
-    let(:invention) { Invention.new(title: Faker::Name.name, description: Faker::Lorem.sentence(2)) }
+    let(:invention) do
+      Invention.new(title: Faker::Name.name, description: Faker::Lorem.sentence(2), bits: [bit])
+    end
 
     it { expect(invention).to be_valid }
 
-    it 'requires title' do
-      invention.title = nil
-      expect(invention).to_not be_valid
-    end
+    context 'required fields' do
+      it 'requires title' do
+        invention.title = nil
+        expect(invention).to_not be_valid
+      end
 
-    it 'requires description' do
-      invention.description = nil
-      expect(invention).to_not be_valid
+      it 'requires description' do
+        invention.description = nil
+        expect(invention).to_not be_valid
+      end
+
+      it 'requires a bit' do
+        invention.bits = []
+        expect(invention).to_not be_valid
+      end
     end
 
     context 'string lengths' do
