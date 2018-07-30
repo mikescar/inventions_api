@@ -47,5 +47,17 @@ RSpec.describe Invention, type: :model do
         expect(invention).to_not be_valid
       end
     end
+
+    describe 'email' do
+      it do
+        invention.email = 'asdf@asdf.com'
+        expect(invention).to be_valid
+      end
+
+      it do
+        invention.email = 'asdf.com'
+        expect(invention).to_not be_valid
+      end
+    end
   end
 end
