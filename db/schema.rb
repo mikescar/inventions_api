@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_07_30_165200) do
+ActiveRecord::Schema.define(version: 2018_07_30_184637) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -35,6 +35,8 @@ ActiveRecord::Schema.define(version: 2018_07_30_165200) do
     t.string "email", limit: 255
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.text "materials", default: [], null: false, array: true
+    t.index ["materials"], name: "index_inventions_on_materials", using: :gin
   end
 
   add_foreign_key "bits_inventions", "bits"
