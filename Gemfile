@@ -3,7 +3,7 @@ source 'https://rubygems.org'
 ruby '2.5.1'
 
 git_source(:github) do |repo_name|
-  repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?("/")
+  repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?('/')
   "https://github.com/#{repo_name}.git"
 end
 
@@ -24,6 +24,7 @@ gem 'puma', '~> 3.7'
 group :development, :test do
   gem 'byebug'
   gem 'faker'
+  gem 'rubocop'
 end
 
 group :development do

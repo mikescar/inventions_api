@@ -7,5 +7,5 @@ class Invention < ApplicationRecord
   validates :title, presence: true, length: { maximum: 255 }
   validates :username, length: { maximum: 255 }
 
-  before_save { self.materials.uniq! }
+  before_save { materials.uniq! }
 end

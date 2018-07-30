@@ -1,8 +1,8 @@
-require "rails_helper"
+require 'rails_helper'
 
 RSpec.describe Invention, type: :model do
   let(:bit) do
-    Bit.new(name: %w(bargraph bend-sensor branch bright-led button buzzer coin-battery).sample)
+    Bit.new(name: %w[bargraph bend-sensor branch bright-led button buzzer coin-battery].sample)
   end
 
   let(:invention) do
@@ -65,8 +65,8 @@ RSpec.describe Invention, type: :model do
 
   # Extremely contrived and overdone example of verifying save behavior
   describe 'materials' do
-    let(:dupe_materials) { ['yarn', 'scissors', 'tape', 'yarn'] }
-    let(:unique_materials) { ['yarn', 'scissors', 'tape'] }
+    let(:dupe_materials) { %w[yarn scissors tape yarn] }
+    let(:unique_materials) { %w[yarn scissors tape] }
 
     it 'will throw exception if set to nil' do
       invention.materials = nil

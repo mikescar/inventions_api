@@ -1,4 +1,4 @@
-require "rails_helper"
+require 'rails_helper'
 
 RSpec.describe Bit, type: :model do
   it { expect(Bit.new(name: '')).to_not be_valid }

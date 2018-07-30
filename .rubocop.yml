@@ -1,0 +1,18 @@
+AllCops:
+    Exclude:
+        - 'bin/{rails,rake,setup,update}'
+        - 'db/schema.rb'
+        - 'spec/{rails,spec}_helper.rb'
+
+Metrics:
+    Exclude:
+        - '{db,spec}/**/*.rb'
+
+Metrics/LineLength:
+    Enabled: false
+
+Style/Documentation:
+    Enabled: false
+
+Style/FrozenStringLiteralComment:
+    Enabled: false
