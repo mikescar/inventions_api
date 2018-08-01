@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Api::V1::InventionsController, type: :controller do
-  # TODO fabricator gem is good replacement for this boilerplate
+  # TODO fabricator gem is good replacement for this object creation
   let(:bit1) { Bit.create!(name: Faker::Name.name) }
   let(:bit2) { Bit.create!(name: Faker::Name.name) }
   let(:invention) do
@@ -10,8 +10,9 @@ RSpec.describe Api::V1::InventionsController, type: :controller do
 
   let(:parsed_response_body) { JSON.parse(response.body) }
 
+  # TODO return 404 for this, and routes not implemented for /api/v1/bits
   describe '#index' do
-    it 'is not allowed' do
+    it 'is not implemented' do
       expect { get :index }.to raise_error(ActionController::UrlGenerationError, /No route matches.*/)
     end
   end
