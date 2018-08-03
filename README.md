@@ -1,6 +1,7 @@
-The following steps will get this project up and running.
+A sample API implementation that shows some basic style and gem preferences for Ruby on Rails projects.
 
-A hosted version is available at `inventions-api.herokuapp.com`
+The API consumer can view a list of parts ("bits"), and specify inventions
+based on those parts. A hosted version lives at `inventions-api.herokuapp.com`.
 
 ## System dependencies
 Ruby 2.5.1+, Postgresql 10+
@@ -9,7 +10,7 @@ Assuming you have ruby installed, run `bundle install`
 
 
 ## Local database creation & (re-)initialization
-If you don't care what the databases are named, just run the command below. Otherwise, first set ENV vars for `BITS_DATABASE_DEVELOPMENT` and `BITS_DATABASE_TEST`, then run command.
+If you don't care what the databases are named, just run the command below. Otherwise, set your ENV vars for `BITS_DATABASE_DEVELOPMENT` and `BITS_DATABASE_TEST`, then run command.
 
 `rails db:reset; rails db:migrate; rails db:migrate RAILS_ENV=test`
 
@@ -20,9 +21,13 @@ that failed last time, use `rspec --only-failures`.
 
 
 ## Heroku deployment
-Create a heroku app, and after initial deployment run:
+Create a heroku app, and after initial deployment plug your APP_NAME into:
 ```
-heroku addons:create heroku-postgresql -a inventions-api
-heroku run rails secrets:setup -a inventions-api
-heroku run rails db:migrate -a inventions-api
+heroku addons:create heroku-postgresql -a APP_NAME
+heroku run rails secrets:setup -a APP_NAME
+heroku run rails db:migrate -a APP_NAME
 ```
+
+## Other notes
+I'm leaving branches here to show I didn't really work on master directly, but I prefer to delete
+them after merging to master.
