@@ -1,5 +1,7 @@
 The following steps will get this project up and running.
 
+A hosted version is available at `inventions-api.herokuapp.com`
+
 ## System dependencies
 Ruby 2.5.1+, Postgresql 10+
 
@@ -17,4 +19,10 @@ Just run `rspec`, or `rspec spec/models` or the like to run a subset of tests. T
 that failed last time, use `rspec --only-failures`.
 
 
-* Deployment instructions
+## Heroku deployment
+Create a heroku app, and after initial deployment run:
+```
+heroku addons:create heroku-postgresql -a inventions-api
+heroku run rails secrets:setup -a inventions-api
+heroku run rails db:migrate -a inventions-api
+```
