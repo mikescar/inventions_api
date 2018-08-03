@@ -13,7 +13,8 @@ If you don't care what the databases are named, just run the command below. Othe
 
 
 ## Running tests
-Just run `rspec`, or `rspec spec/models` or the like to run a subset of tests.
+Just run `rspec`, or `rspec spec/models` or the like to run a subset of tests. To run only the tests
+that failed last time, use `rspec --only-failures`.
 
 
 * Deployment instructions
