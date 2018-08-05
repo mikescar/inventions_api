@@ -1,7 +1,7 @@
 A sample API implementation that shows some basic style and gem preferences for Ruby on Rails projects.
 
 The API consumer can view a list of parts ("bits"), and specify inventions
-based on those parts. A hosted version lives at `inventions-api.herokuapp.com`.
+based on those parts. Read basic API docs [here](https://github.com/mikescar/inventions_api/wiki/How-to-Use). A hosted version lives at `inventions-api.herokuapp.com`.
 
 ## System dependencies
 Ruby 2.5.1+, Postgresql 10+
