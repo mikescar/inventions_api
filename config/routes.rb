@@ -6,4 +6,6 @@ Rails.application.routes.draw do
       resources :inventions, except: [:index]
     end
   end
+
+  match '*path', to: 'application#handle_404', via: :all
 end
