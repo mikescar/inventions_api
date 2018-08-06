@@ -1,3 +1,5 @@
+[![CircleCI](https://circleci.com/gh/mikescar/inventions_api.svg?style=svg)](https://circleci.com/gh/mikescar/inventions_api)
+
 A sample API implementation that shows some basic style and gem preferences for Ruby on Rails projects.
 
 The API consumer can view a list of parts ("bits"), and specify inventions
