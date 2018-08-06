@@ -4,7 +4,7 @@ jobs:
     working_directory: ~/inventions-api
     docker: # run the steps with Docker
       - image: mikescar/heroku-ruby-2.5:firsttry
-      - image: postgres/10.4
+      - image: postgres:10.4
     steps:
       - checkout # special step to check out source code to working directory
 
