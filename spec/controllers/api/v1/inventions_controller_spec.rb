@@ -129,7 +129,10 @@ RSpec.describe Api::V1::InventionsController, type: :controller do
   describe '#update' do
     let(:new_title) { Faker::Lorem.words(6).join }
     let(:new_email) { Faker::Internet.email }
-    let!(:original_title)   { invention.title }
+
+    # Without this reload, specs checking for matching timestamps will fail
+    #   Rails has more accuracy before object has been saved (20:12:36.694959671 vs 20:12:36.694959000 for example)
+    let!(:original_title)   { invention.reload; invention.title }
     let!(:original_created) { invention.created_at }
     let!(:original_updated) { invention.updated_at }
 
