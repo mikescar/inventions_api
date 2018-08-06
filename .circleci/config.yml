@@ -1,7 +1,7 @@
 version: 2
 jobs:
   build:
-    working_directory: /app
+    working_directory: ~/inventions-api
     docker: # run the steps with Docker
       - image: mikescar/heroku-ruby-2.5
         environment:
