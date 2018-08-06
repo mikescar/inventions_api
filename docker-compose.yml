@@ -1,0 +1,21 @@
+version: '2'
+services:
+  db:
+    image: postgres:10.4
+    ports:
+      - "5432:5432"
+    volumes:
+      # Required to persist data instead of just starting with fresh postgres install every time.
+      - ./docker/data/postgres:/var/lib/postgresql/data
+  web:
+    build: .
+    command: 'bash -c ''bundle exec puma -C config/puma.rb'''
+    depends_on:
+      - db
+    env_file:
+      - docker/web.env
+    ports:
+      - '3000:3000'
+    volumes:
+      - .:/app
+    working_dir: /app
