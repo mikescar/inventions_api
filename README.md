@@ -27,10 +27,22 @@ Set your `ENV['DATABASE_URL']` using format: `postgres://#{username}@#{hostname}
 `rails db:create && rails db:migrate && rails db:migrate RAILS_ENV=test`
 
 ### Docker
-The default database already exists when we create the postgres container, we just need to add our schema:
+Create a `docker/web.env` file containing your `DATABASE_URL` values, like this
 
-`docker-compose run web rails db:migrate`
+```
+DATABASE_URL=postgres://postgres@db:5432/inventions-api
+DATABASE_URL_TEST=postgres://postgres@db:5432/inventions-api_test
+```
 
+You can also use this file to define other sensitive info that you don't want to commit to repo (it's in `.gitignore`).
+
+Then run:
+
+```
+docker-compose run web rails db:create
+docker-compose run web rails db:migrate
+docker-compose run web rails db:schema:load RAILS_ENV=test
+```
 
 ## Running development environment
 
@@ -42,8 +54,13 @@ The default database already exists when we create the postgres container, we ju
 
 
 ## Running tests
+
+### Local
 Just run `rspec`, or `rspec spec/models` or the like to run a subset of tests. To run only the tests
 that failed last time, use `rspec --only-failures`.
+
+### Docker
+`docker-compose run --rm web bundle exec rspec`
 
 
 ## Heroku deployment

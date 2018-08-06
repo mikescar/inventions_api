@@ -11,8 +11,8 @@
 /db/*.sqlite3
 /db/*.sqlite3-journal
 
-# docker data directory
-/postgres-data
+# docker env and data directory
+/docker
 
 # Ignore all logfiles and tempfiles.
 /log/*

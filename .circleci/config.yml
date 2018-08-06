@@ -3,10 +3,10 @@ jobs:
   build:
     working_directory: ~/inventions-api
     docker: # run the steps with Docker
-      - image: mikescar/heroku-ruby-2.5:firsttry
+      - image: mikescar/heroku-ruby-2.5
         environment:
           RAILS_ENV: test
-          DATABASE_URL: postgres://postgres@localhost:5432/postgres
+          DATABASE_URL_TEST: postgres://postgres@localhost:5432/postgres
       - image: postgres:10.4
     steps:
       - checkout # special step to check out source code to working directory
