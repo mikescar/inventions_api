@@ -108,6 +108,7 @@ RSpec.describe Api::V1::InventionsController, type: :controller do
         it { expect(Invention.last.email).to eq optional_params[:email] }
         it { expect(Invention.last.title).to eq required_params[:title] }
         it { expect(Invention.last.username).to eq optional_params[:username] }
+        it { expect(Invention.last.materials).to eq optional_params[:materials] }
       end
     end
 
@@ -176,7 +177,7 @@ RSpec.describe Api::V1::InventionsController, type: :controller do
         it 'for email' do
           patch :update, params: { id: invention.id, email: 'asdfasdf' }
           expect(response.status).to eq 422
-          expect(parsed_response_body['error']).to eq 'blank'
+          expect(parsed_response_body['error']).to eq "Validation failed: Email is invalid"
         end
       end
     end

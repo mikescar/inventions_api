@@ -36,7 +36,7 @@ module Api::V1
     private
 
     def invention_params
-      params.permit(:description, :email, :id, :title, :username, bit_ids: [])
+      params.permit(:description, :email, :id, :title, :username, bit_ids: [], materials: [])
     end
   end
 end
