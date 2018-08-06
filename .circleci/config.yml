@@ -36,6 +36,9 @@ jobs:
           command: bundle exec rspec
 
       # Save test results for timing analysis
+      - run:
+          command: mkdir test_results
+          
       - store_test_results:
           path: test_results
       # See https://circleci.com/docs/2.0/deployment-integrations/ for example deploy configs
