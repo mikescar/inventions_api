@@ -3,16 +3,40 @@ A sample API implementation that shows some basic style and gem preferences for 
 The API consumer can view a list of parts ("bits"), and specify inventions
 based on those parts. A hosted version lives at `inventions-api.herokuapp.com`.
 
+This app has been `docker`-ized, but it is not required if you just want to build and develop the traditional rails way.
+Instructions below are provided for a 'local' rails environment, and the docker one. _Don't use both! :)_
+
 ## System dependencies
-Ruby 2.5.1+, Postgresql 10+
+The Ruby on Rails app itself uses `ruby 2.5.1` and `postgres 10.4`.
 
-Assuming you have ruby installed, run `bundle install`
+## Local
+`gem install bundler && bundle install`
+
+### Docker
+Development environment requires support for `docker-compose` version 2.
+
+To build initial containers: `docker-compose build`. Also run this after changing docker configs
+(`Dockerfile`, `docker-compose.yml`).
 
 
-## Local database creation & (re-)initialization
-If you don't care what the databases are named, just run the command below. Otherwise, set your ENV vars for `BITS_DATABASE_DEVELOPMENT` and `BITS_DATABASE_TEST`, then run command.
+## Development database creation
 
-`rails db:reset; rails db:migrate; rails db:migrate RAILS_ENV=test`
+### Local
+`rails db:create && rails db:migrate && rails db:migrate RAILS_ENV=test`
+
+### Docker
+The default database already exists when we create the postgres container, we just need to add our schema:
+
+`docker-compose run web rails db:migrate`
+
+
+## Running development environment
+
+### Local
+`rails server`
+
+### Docker
+`docker-compose up` or `docker-compose up -d` if you want it to run in the background.
 
 
 ## Running tests
@@ -29,5 +53,5 @@ heroku run rails db:migrate -a APP_NAME
 ```
 
 ## Other notes
-I'm leaving branches here to show I didn't really work on master directly, but I prefer to delete
-them after merging to master.
+I'm keeping old branches around to show I didn't really work on master directly, but on real projects
+I do prefer to delete branches after merging to master.
