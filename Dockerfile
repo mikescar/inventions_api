@@ -5,6 +5,9 @@ RUN apt-get update && apt-get install -y  build-essential nodejs
 RUN mkdir -p /app
 WORKDIR /app
 
+RUN useradd -m mikescar
+USER mikescar
+
 # Copy the Gemfile as well as the Gemfile.lock and install
 # the RubyGems. This is a separate step so the dependencies
 # will be cached unless changes to one of those two files

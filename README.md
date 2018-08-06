@@ -22,6 +22,8 @@ To build initial containers: `docker-compose build`. Also run this after changin
 ## Development database creation
 
 ### Local
+Set your `ENV['DATABASE_URL']` using format: `postgres://#{username}@#{hostname}:#{port}/#{database}`
+
 `rails db:create && rails db:migrate && rails db:migrate RAILS_ENV=test`
 
 ### Docker
