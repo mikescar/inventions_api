@@ -60,7 +60,7 @@ Just run `rspec`, or `rspec spec/models` or the like to run a subset of tests. T
 that failed last time, use `rspec --only-failures`.
 
 ### Docker
-`docker-compose run --rm web bundle exec rspec`
+`docker-compose run --rm web bundle exec rspec`, OR `docker exec -it inventions_api_web_1 bundle exec rspec` will execute in already-running container
 
 
 ## Heroku deployment
