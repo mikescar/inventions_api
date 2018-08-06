@@ -21,6 +21,8 @@ jobs:
           name: Bundle Install
           command: bundle check || bundle install
 
+      - run: mkdir ~/rspec
+
       # Store bundle cache
       - save_cache:
           key: rails-demo-bundle-v2-{{ checksum "Gemfile.lock" }}
@@ -33,12 +35,9 @@ jobs:
 
       - run:
           name: Run rspec
-          command: bundle exec rspec
+          command: bundle exec rspec --format progress --format RspecJunitFormatter -o ~/rspec/rspec.xml
+          when: always
 
-      # Save test results for timing analysis
-      - run:
-          command: mkdir test_results
-          
       - store_test_results:
-          path: test_results
+          path: ~/rspec
       # See https://circleci.com/docs/2.0/deployment-integrations/ for example deploy configs
