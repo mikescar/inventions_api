@@ -1,7 +1,4 @@
 version: 2
-machine:
-  services:
-    - docker
 jobs:
   build:
     working_directory: ~/inventions-api
@@ -26,10 +23,6 @@ jobs:
           key: rails-demo-bundle-v2-{{ checksum "Gemfile.lock" }}
           paths:
             - vendor/bundle
-
-      - run:
-          name: Wait for DB
-          command: dockerize -wait tcp://localhost:5432 -timeout 1m
 
       - run:
           name: Database setup
