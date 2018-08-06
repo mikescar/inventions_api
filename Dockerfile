@@ -21,4 +21,8 @@ RUN gem install bundler && bundle install --jobs 20 --retry 5
 # Copy the main application.
 COPY . ./
 
+# Heroku ignores this
 EXPOSE 3000
+
+# Run the app. CMD is required to run on Heroku
+CMD bundle exec puma -C config/puma.rb
