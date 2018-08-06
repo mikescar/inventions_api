@@ -1,9 +1,15 @@
 FROM heroku/heroku:18-build
 
-RUN apt-get update && apt-get install -y  build-essential nodejs
+RUN apt-get update && apt-get install -y build-essential nodejs
 
-RUN mkdir -p /app
-WORKDIR /app
+ENV APP_HOME /app
+RUN mkdir -p $APP_HOME
+
+#RUN useradd -m unpriv
+#RUN chown unpriv $APP_HOME
+#USER unpriv
+
+WORKDIR $APP_HOME
 
 # Copy the Gemfile as well as the Gemfile.lock and install
 # the RubyGems. This is a separate step so the dependencies
