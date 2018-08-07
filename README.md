@@ -11,7 +11,7 @@ Instructions below are provided for a 'local' rails environment, and the docker 
 ## System dependencies
 The Ruby on Rails app itself uses `ruby 2.5.x` and `postgres 10.4.x`.
 
-## Local
+### Local
 `gem install bundler && bundle install`
 
 ### Docker
@@ -73,10 +73,10 @@ heroku addons:create heroku-postgresql -a APP_NAME
 heroku run rails secrets:setup -a APP_NAME
 ```
 
-## Local / Traditional
+### Local / Traditional
 Nothing else needs to be done.
 
-## Docker
+### Docker
 ```
 heroku container:login
 heroku container:push -a APP_NAME
@@ -89,5 +89,6 @@ I do prefer to delete branches after merging them.
 
 
 ## TODO
-- Create and push docker containers from CircleCI to Heroku, skip the 
+- Create and push docker containers from CircleCI to Heroku, skip the manual `heroku container` steps.
 - Add support for new `heroku.yml` to enable docker containers in Heroku review apps.
+- Define more minimal `production` containers that don't include the `:development` or `:test` gems.
