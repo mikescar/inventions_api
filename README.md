@@ -1,4 +1,5 @@
 [![CircleCI](https://circleci.com/gh/mikescar/inventions_api.svg?style=svg)](https://circleci.com/gh/mikescar/inventions_api)
+[![codecov](https://codecov.io/gh/mikescar/inventions_api/branch/master/graph/badge.svg)](https://codecov.io/gh/mikescar/inventions_api)
 
 A sample API implementation that shows some basic style and tooling preferences for Ruby on Rails projects.
 
