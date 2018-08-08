@@ -232,8 +232,22 @@ RSpec.describe Api::V1::InventionsController, type: :controller do
     before { invention }
 
     it 'allows delete by id' do
-      expect { delete :destroy, params: { id: invention.id} }.to change { Invention.count }.by(-1)
+      expect { delete :destroy, params: { id: invention.id } }.to change { Invention.count }.by(-1)
       expect { invention.reload }.to raise_error ActiveRecord::RecordNotFound
+    end
+
+    it 'returns error for bad id' do
+      expect { delete :destroy, params: { id: invention.id + 9000 } }.to_not change { Invention.count }
+      expect(response.status).to eq 404
+      expect(parsed_response_body['error']).to include "Couldn't find Invention with"
+    end
+
+    it 'returns error for problem on our side' do
+      exception_message = 'OH NOES!!!!'
+      allow_any_instance_of(Invention).to receive(:destroy!).and_raise(exception_message)
+      expect { delete :destroy, params: { id: invention.id } }.to_not change { Invention.count }
+      expect(response.status).to eq 422
+      expect(parsed_response_body['error']).to include exception_message
     end
   end
 end

@@ -25,12 +25,14 @@ module Api::V1
     end
 
     # TODO implement soft delete, I hate deleting user data outright.
-    # TODO Add handling for records not found, or that user is unauthorized to delete
-    #   I like 404 for both cases, since it doesn't leak info about which IDs are valid outside of a user's own objects.
+    # TODO Add handling for records that user is unauthorized to delete
+    #   I like 404 for this case also, to avoid leaking info about which IDs are valid.
     def destroy
       invention.destroy!
+    rescue ActiveRecord::RecordNotFound => e
+      render status: :not_found, json: { error: e.message }
     rescue => e
-      render status: :unproccessable_entity, json: { error: e.message }
+      render status: :unprocessable_entity, json: { error: e.message }
     end
 
     private
