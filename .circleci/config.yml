@@ -45,12 +45,12 @@ jobs:
       - setup_remote_docker
 
       - store_test_results:
-        path: $TEST_RESULTS_PATH
+          path: $TEST_RESULTS_PATH
 
       - run:
-        name: Build and push Docker image
-        command: |
-          TAG="0.1.${CIRCLE_BUILD_NUM}"
-          - docker login --email=$HEROKU_LOGIN --username=$HEROKU_LOGIN --password=$HEROKU_API_KEY registry.heroku.com
-          - docker build --rm=false -t registry.heroku.com/${APP_NAME_PRODUCTION}/web .
-          - docker push registry.heroku.com/${APP_NAME_PRODUCTION}/web:latest
+          name: Build and push Docker image
+          command: |
+            TAG="0.1.${CIRCLE_BUILD_NUM}"
+            - docker login --email=$HEROKU_LOGIN --username=$HEROKU_LOGIN --password=$HEROKU_API_KEY registry.heroku.com
+            - docker build --rm=false -t registry.heroku.com/${APP_NAME_PRODUCTION}/web .
+            - docker push registry.heroku.com/${APP_NAME_PRODUCTION}/web:latest
