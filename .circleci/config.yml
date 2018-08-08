@@ -1,4 +1,7 @@
 version: 2
+machine:
+  services:
+    - docker
 jobs:
   build:
     working_directory: ~/inventions-api
@@ -41,3 +44,10 @@ jobs:
       - store_test_results:
           path: ~/rspec
       # See https://circleci.com/docs/2.0/deployment-integrations/ for example deploy configs
+deployment:
+  production:
+    branch: master
+    commands:
+      - docker login --email=$HEROKU_LOGIN --username=$HEROKU_LOGIN --password=$HEROKU_API_KEY registry.heroku.com
+      - docker build --rm=false -t registry.heroku.com/${APP_NAME_PRODUCTION}/web .
+      - docker push registry.heroku.com/${APP_NAME_PRODUCTION}/web:latest
