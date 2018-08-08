@@ -41,10 +41,20 @@ jobs:
           command: bundle exec rspec --format progress --format RspecJunitFormatter -o ~/rspec/rspec.xml
           when: always
 
-      - setup_remote_docker
-
       - store_test_results:
           path: ~/rspec
+
+      - setup_remote_docker
+
+      # TODO This should go into custom primary image
+      - run:
+          name: Install Docker client
+          command: |
+            set -x
+            VER="17.03.0-ce"
+            curl -L -o /tmp/docker-$VER.tgz https://get.docker.com/builds/Linux/x86_64/docker-$VER.tgz
+            tar -xz -C /tmp -f /tmp/docker-$VER.tgz
+            mv /tmp/docker/* /usr/bin
 
       - run:
           name: Build and push Docker image
