@@ -1,2 +1,3 @@
+# This file is ignored if you deploy with docker containers via heroku.yml
 web: bundle exec puma -C config/puma.rb
-release: bundle exec rails db:migrate
+release: ./bin/deployment-tasks.sh

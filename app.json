@@ -1,7 +1,8 @@
 {
   "name": "inventions-api",
   "description": "Sample rails API implementation",
+  "stack": "container",
   "addons": [
-    "heroku-postgresql"
+    "heroku-postgresql:hobby-dev"
   ]
 }
