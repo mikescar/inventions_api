@@ -25,7 +25,7 @@ jobs:
           name: Bundle Install
           command: bundle check || bundle install
 
-      - run: mkdir $TEST_RESULTS_PATH
+      - run: mkdir ~/rspec
 
       # Store bundle cache
       - save_cache:
@@ -45,7 +45,7 @@ jobs:
       - setup_remote_docker
 
       - store_test_results:
-          path: $TEST_RESULTS_PATH
+          path: ~/rspec
 
       - run:
           name: Build and push Docker image
