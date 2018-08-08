@@ -36,6 +36,7 @@ group :development do
 end
 
 group :test do
+  gem 'codecov', require: false
   gem 'rspec-rails'
   gem 'rspec_junit_formatter'
 end
