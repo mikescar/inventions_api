@@ -1,7 +1,7 @@
 FROM heroku/heroku:18
 
 RUN apt-get update && apt-get install -y \
-  build-essential libpq-dev nodejs ruby2.5-dev zlib1g-dev
+  build-essential docker libpq-dev nodejs ruby2.5-dev zlib1g-dev
 
 ENV APP_HOME /app
 RUN mkdir -p $APP_HOME
