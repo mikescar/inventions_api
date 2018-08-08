@@ -83,13 +83,3 @@ heroku container:login
 heroku container:push -a APP_NAME
 heroku container:release -a APP_NAME
 ```
-
-## Other notes
-I'm keeping old branches around to show I don't really work on master directly, but on real projects
-I do prefer to delete branches after merging them.
-
-
-## TODO
-- Create and push docker containers from CircleCI to Heroku, skip the manual `heroku container` steps.
-- Add support for new `heroku.yml` to enable docker containers in Heroku review apps.
-- Define more minimal `production` containers that don't include the `:development` or `:test` gems.
