@@ -1,4 +1,4 @@
-FROM mikescar/heroku-2.5
+FROM mikescar/heroku-ruby-2.5
 
 ENV APP_HOME /app
 RUN mkdir -p $APP_HOME
