@@ -60,8 +60,8 @@ jobs:
           name: Build and push Docker image
           command: |
             TAG="registry.heroku.com/${APP_NAME_PRODUCTION}/web"
-            docker login --email=$HEROKU_LOGIN --username=_ --password=$HEROKU_API_KEY registry.heroku.com
-            echo "`docker login` exit code: $?"
+            docker login --username=_ --password=$HEROKU_API_KEY registry.heroku.com
+            echo "docker login exit code: $?"
             docker build --rm=false -t $TAG:latest .
             IMAGE_ID=$(docker inspect $TAG --format={{.Id}})
             echo "Image ID is: $IMAGE_ID"
