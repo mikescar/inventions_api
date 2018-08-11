@@ -59,7 +59,19 @@ jobs:
       - run:
           name: Build and push Docker image
           command: |
-            TAG="0.1.${CIRCLE_BUILD_NUM}"
+            TAG="registry.heroku.com/${APP_NAME_PRODUCTION}/web"
             docker login --email=$HEROKU_LOGIN --username=$HEROKU_LOGIN --password=$HEROKU_API_KEY registry.heroku.com
-            docker build --rm=false -t registry.heroku.com/${APP_NAME_PRODUCTION}/web .
-            docker push registry.heroku.com/${APP_NAME_PRODUCTION}/web
+            docker build --rm=false -t $TAG:latest .
+            IMAGE_ID=$(docker inspect $TAG --format={{.Id}})
+            docker push registry.heroku.com/${APP_NAME_PRODUCTION}
+            curl -n -X PATCH https://api.heroku.com/apps/${APP_NAME_PRODUCTION}/formation \
+              -d '{
+              "updates": [
+                {
+                  "type": "web",
+                  "docker_image": "$IMAGE_ID"
+                }
+              ]
+            }' \
+              -H "Content-Type: application/json" \
+              -H "Accept: application/vnd.heroku+json; version=3.docker-releases"
