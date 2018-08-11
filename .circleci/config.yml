@@ -77,3 +77,4 @@ jobs:
             }' \
               -H "Content-Type: application/json" \
               -H "Accept: application/vnd.heroku+json; version=3.docker-releases"
+            exit $?
