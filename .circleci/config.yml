@@ -61,7 +61,6 @@ jobs:
           command: |
             TAG="registry.heroku.com/${APP_NAME_PRODUCTION}/web"
             docker login --username=_ --password=$HEROKU_API_KEY registry.heroku.com
-            echo "docker login exit code: $?"
             docker build --rm=false -t $TAG:latest .
             IMAGE_ID=$(docker inspect $TAG --format={{.Id}})
             echo "Image ID is: $IMAGE_ID"
@@ -77,4 +76,4 @@ jobs:
             }' \
               -H "Content-Type: application/json" \
               -H "Accept: application/vnd.heroku+json; version=3.docker-releases"
-            exit $?
+              -H "Authorization: Bearer $HEROKU_API_KEY"
