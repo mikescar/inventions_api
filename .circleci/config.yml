@@ -46,7 +46,7 @@ jobs:
 
       - setup_remote_docker
 
-      # TODO This should go into custom primary image
+      # TODO add docker-ce into primary image, remove this; also dockerize a wait for postgres above.
       - run:
           name: Install Docker client
           command: |
@@ -58,10 +58,11 @@ jobs:
 
       - run:
           name: Build and push Docker image
+          # TODO fail this if curl command returns error message!
           command: |
             TAG="registry.heroku.com/${APP_NAME_PRODUCTION}/web"
             docker login --username=_ --password=$HEROKU_API_KEY registry.heroku.com
-            docker build --rm=false -t $TAG:latest .
+            docker build --rm=false -t $TAG .
             IMAGE_ID=$(docker inspect $TAG --format={{.Id}} | cut -d':' -f2)
             echo "Image ID is: $IMAGE_ID"
             docker push $TAG
@@ -70,7 +71,6 @@ jobs:
               "updates": [
                 {
                   "type": "web",
-                  "docker_image": "$IMAGE_ID"
                 }
               ]
             }' \
