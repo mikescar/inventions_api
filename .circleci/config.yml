@@ -33,9 +33,9 @@ jobs:
             - vendor/bundle
 
       - run:
-        name: Wait for postgres image
-        command: |
-          echo $DATABASE_URL
+          name: Wait for postgres image
+          command: |
+            echo $DATABASE_URL
 
       - run:
           name: Database setup
