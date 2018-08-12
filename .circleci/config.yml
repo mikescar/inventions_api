@@ -70,7 +70,7 @@ jobs:
               -d '{
               "updates": [
                 {
-                  "type": "web",
+                  "type": "web"
                 }
               ]
             }' \
