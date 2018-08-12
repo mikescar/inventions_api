@@ -24,7 +24,9 @@ jobs:
           name: Bundle Install
           command: bundle check || bundle install
 
-      - run: mkdir ~/rspec
+      - run:
+          name: Make test results directory
+          command: mkdir ~/rspec
 
       # Store bundle cache
       - save_cache:
