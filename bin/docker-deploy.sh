@@ -1,4 +1,6 @@
-#!/bin/bash -eo pipefail
+#!/bin/bash
+
+set -e -o pipefail
 
 TAG="registry.heroku.com/${APP_NAME_PRODUCTION}/web"
 
