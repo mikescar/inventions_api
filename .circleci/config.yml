@@ -4,9 +4,9 @@ machine:
     - docker
 jobs:
   build:
-    working_directory: ~/inventions-api
+    working_directory: ~/${APP_NAME_PRODUCTION}
     docker: # run the steps with Docker
-      - image: mikescar/heroku-ruby-2.5
+      - image: mikescar/heroku-ruby-2.5:latest
         environment:
           RAILS_ENV: test
           DATABASE_URL_TEST: postgres://postgres@localhost:5432/postgres

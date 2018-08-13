@@ -4,12 +4,12 @@ set -e -o pipefail
 
 TAG="registry.heroku.com/${APP_NAME_PRODUCTION}/web"
 
-docker login --username=_ --password=$HEROKU_API_KEY registry.heroku.com
 docker build --rm=false -t $TAG .
 
 IMAGE_ID=$(docker inspect $TAG --format={{.Id}} | cut -d':' -f2)
 echo "Image ID is: $IMAGE_ID"
 
+docker login --username=_ --password=$HEROKU_API_KEY registry.heroku.com
 docker push $TAG
 
 # TODO exit 1 if curl command returns error message
