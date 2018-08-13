@@ -84,4 +84,4 @@ workflows:
             - build
           filters:
             branches:
-              only: cd-docker-heroku
+              only: master
