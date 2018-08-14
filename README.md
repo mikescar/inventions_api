@@ -74,12 +74,17 @@ heroku addons:create heroku-postgresql -a APP_NAME
 heroku run rails secrets:setup -a APP_NAME
 ```
 
+__For both local and docker:__ If you tell Heroku to use review apps, the `app.json` and `heroku.yml` included here will build/deploy to the review app automatically upon pushing a commit to any branch (`git push origin branch_name`)
+
 ### Local / Traditional
-Nothing else needs to be done.
+`git push heroku master`
 
 ### Docker
+To do this manually, once you're happy with the app & image:
 ```
 heroku container:login
 heroku container:push -a APP_NAME
 heroku container:release -a APP_NAME
 ```
+
+Or, rely on the circleci config here, and just do `heroku container:release -a APP_NAME` after a green build in circle.
