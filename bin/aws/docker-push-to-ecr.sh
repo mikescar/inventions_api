@@ -2,7 +2,7 @@
 
 set -e -o pipefail
 
-apk add py-pip
+apt-get install py-pip
 pip install awscli
 
 $(aws ecr get-login --no-include-email --region $AWS_REGION)
