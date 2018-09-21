@@ -53,6 +53,8 @@ jobs:
       - store_test_results:
           path: ~/rspec
   deploy:
+    environment:
+      SOURCE_IMAGE:
     docker:
       - image: mikescar/heroku-ruby-2.5:latest
     steps:
@@ -70,12 +72,16 @@ jobs:
             mv /tmp/docker/* /usr/bin
 
       - run:
+        # This image will be tagged for each registry and pushed in following steps.
+        docker build --rm=false -t $SOURCE_IMAGE .
+
+      - run:
           name: Push to Heroku Container Registry
-          command: ./bin/heroku/docker-deploy.sh
+          command: ./bin/heroku/docker-push.sh $SOURCE_IMAGE
 
       - run:
           name: Push to AWS EC2 Container Registry
-          command: ./bin/aws/docker-push-to-ecr.sh
+          command: ./bin/aws/docker-push-to-ecr.sh $SOURCE_IMAGE
 
 workflows:
   version: 2
