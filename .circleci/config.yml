@@ -16,7 +16,7 @@ jobs:
       # Restore bundle cache
       - restore_cache:
           keys:
-            - ruby-2.5-bundle-{{ checksum "Gemfile.lock" }}
+            - ruby-2.5.1-bundle-{{ checksum "Gemfile.lock" }}
 
       - run:
           name: Bundle Install
@@ -28,7 +28,7 @@ jobs:
 
       # Store bundle cache
       - save_cache:
-          key: ruby-2.5-bundle-{{ checksum "Gemfile.lock" }}
+          key: ruby-2.5.1-bundle-{{ checksum "Gemfile.lock" }}
           paths:
             - ./vendor/bundle
 
