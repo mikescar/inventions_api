@@ -53,10 +53,10 @@ jobs:
       - store_test_results:
           path: ~/rspec
   deploy:
-    environment:
-      SOURCE_IMAGE: "${CIRCLE_BRANCH}-${CIRCLE_BUILD_NUM}"
     docker:
       - image: mikescar/heroku-ruby-2.5:latest
+        environment:
+          SOURCE_IMAGE: "${CIRCLE_BRANCH}-${CIRCLE_BUILD_NUM}"
     steps:
       - checkout
       - setup_remote_docker
@@ -72,8 +72,8 @@ jobs:
             mv /tmp/docker/* /usr/bin
 
       - run:
-        # This image will be tagged for each registry and pushed in following steps.
-        docker build --rm=false -t $SOURCE_IMAGE .
+        name: Build docker image
+        command: docker build --rm=false -t $SOURCE_IMAGE .
 
       - run:
           name: Push to Heroku Container Registry
