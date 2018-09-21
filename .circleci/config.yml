@@ -20,7 +20,7 @@ jobs:
 
       - run:
           name: Bundle Install
-          command: bundle check || bundle install --path=./vendor/bundle
+          command: bundle check || bundle install --path vendor/bundle
 
       - run:
           name: Make test results directory
