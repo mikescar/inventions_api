@@ -1,11 +1,7 @@
 #!/bin/bash
-
 set -e -o pipefail
 
-# TODO move these into base image to speed up builds and make deterministic
-apt-get install -y python-pip
-pip install awscli
-
+# awscli is already installed in base docker image
 $(aws ecr get-login --no-include-email --region $AWS_REGION)
 
 TAG="${CIRCLE_BRANCH}-${CIRCLE_BUILD_NUM}"
