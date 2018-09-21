@@ -30,7 +30,7 @@ jobs:
       - save_cache:
           key: ruby-2.5-bundle-{{ checksum "Gemfile.lock" }}
           paths:
-            - vendor/bundle
+            - ./vendor/bundle
 
       - run:
           name: Wait for postgres image
