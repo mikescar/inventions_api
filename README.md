@@ -1,7 +1,7 @@
 [![CircleCI](https://circleci.com/gh/mikescar/inventions_api.svg?style=svg)](https://circleci.com/gh/mikescar/inventions_api)
 [![codecov](https://codecov.io/gh/mikescar/inventions_api/branch/master/graph/badge.svg)](https://codecov.io/gh/mikescar/inventions_api)
 
-A sample API server that shows some basic style, tooling, and workflow preferences for Ruby on Rails projects.
+A repo for people who love completely over-engineered solutions for contrived examples. I've implemented a sample API server that shows some basic style, tooling, and workflow preferences for Ruby on Rails projects.
 
 As the API consumer, you can view a list of parts ("bits"), and specify inventions
 based on those parts. Read basic API docs [here](https://github.com/mikescar/inventions_api/wiki/How-to-Use). A hosted version lives at `inventions-api.herokuapp.com`.
