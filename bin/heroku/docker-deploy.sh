@@ -1,16 +1,16 @@
 #!/bin/bash
-
 set -e -o pipefail
 
-TAG="registry.heroku.com/${APP_NAME_PRODUCTION}/web"
+TARGET="registry.heroku.com/${APP_NAME_PRODUCTION}/web"
 
-docker build --rm=false -t $TAG .
+# Avoid some circle warnings by not removing, it's ephemeral anyway
+docker build --rm=false -t $TARGET .
 
-IMAGE_ID=$(docker inspect $TAG --format={{.Id}} | cut -d':' -f2)
+IMAGE_ID=$(docker inspect $TARGET --format={{.Id}} | cut -d':' -f2)
 echo "Image ID is: $IMAGE_ID"
 
 docker login --username=_ --password=$HEROKU_API_KEY registry.heroku.com
-docker push $TAG
+docker push $TARGET
 
 # TODO exit 1 if curl command returns error message
 curl -n -X PATCH https://api.heroku.com/apps/${APP_NAME_PRODUCTION}/formation \

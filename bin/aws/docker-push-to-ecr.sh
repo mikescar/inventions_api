@@ -5,13 +5,13 @@ set -e -o pipefail
 $(aws ecr get-login --no-include-email --region $AWS_REGION)
 
 TAG="${CIRCLE_BRANCH}-${CIRCLE_BUILD_NUM}"
-SOURCE="${AWS_ECR_REPO_NAME}:${TAG}"
-TARGET="${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/${SOURCE}"
+DOMAIN="${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com"
+TARGET="${DOMAIN}/${AWS_ECR_REPO_NAME}:${TAG}"
 
-docker build --rm=false -t $SOURCE .
+# Avoid some circle warnings by not removing, it's ephemeral anyway
+docker build --rm=false -t $TARGET .
 
-IMAGE_ID=$(docker inspect $SOURCE --format={{.Id}} | cut -d':' -f2)
+IMAGE_ID=$(docker inspect $TARGET --format={{.Id}} | cut -d':' -f2)
 echo "Image ID is: $IMAGE_ID"
 
-docker tag $SOURCE $TARGET
 docker push $TARGET
