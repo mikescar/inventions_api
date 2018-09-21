@@ -73,9 +73,10 @@ jobs:
       - run:
           name: Push to Heroku Container Registry
           command: ./bin/heroku/docker-deploy.sh
+
       - run:
           name: Push to AWS EC2 Container Registry
-          command: ./bin/aws/push-to-ecr.sh
+          command: ./bin/aws/docker-push-to-ecr.sh
 
 workflows:
   version: 2
@@ -85,6 +86,3 @@ workflows:
       - deploy:
           requires:
             - build
-          filters:
-            branches:
-              only: master
