@@ -71,8 +71,8 @@ jobs:
             mv /tmp/docker/* /usr/bin
 
       - run:
-          name: Build and push Docker image
-          command: ./bin/docker-deploy.sh
+          name: Push to Heroku Container Registry
+          command: ./bin/heroku/docker-deploy.sh
 
 workflows:
   version: 2
