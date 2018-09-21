@@ -2,17 +2,20 @@
 
 set -e -o pipefail
 
+# TODO move these into base image to speed up builds and make deterministic
 apt-get install -y python-pip
 pip install awscli
 
 $(aws ecr get-login --no-include-email --region $AWS_REGION)
 
-VERSIONED_TAG="${AWS_ECR_REPO_NAME}:${CIRCLE_BRANCH}-${CIRCLE_BUILD_NUM}"
-docker build --rm=false -t $VERSIONED_TAG .
+TAG="${CIRCLE_BRANCH}-${CIRCLE_BUILD_NUM}"
+SOURCE="${AWS_ECR_REPO_NAME}:${TAG}"
+TARGET="${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/${SOURCE}"
 
-IMAGE_ID=$(docker inspect $VERSIONED_TAG --format={{.Id}} | cut -d':' -f2)
+docker build --rm=false -t $SOURCE .
+
+IMAGE_ID=$(docker inspect $SOURCE --format={{.Id}} | cut -d':' -f2)
 echo "Image ID is: $IMAGE_ID"
 
-TARGET_TAG="${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/${VERSIONED_TAG}"
-docker tag $VERSIONED_TAG $TARGET_TAG
-docker push $TARGET_TAG
+docker tag $SOURCE $TARGET
+docker push $TARGET
