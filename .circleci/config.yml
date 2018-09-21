@@ -54,7 +54,7 @@ jobs:
           path: ~/rspec
   deploy:
     environment:
-      SOURCE_IMAGE:
+      SOURCE_IMAGE: "${CIRCLE_BRANCH}-${CIRCLE_BUILD_NUM}"
     docker:
       - image: mikescar/heroku-ruby-2.5:latest
     steps:
