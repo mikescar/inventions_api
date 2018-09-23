@@ -9,18 +9,12 @@ RUN mkdir -p $APP_HOME
 
 WORKDIR $APP_HOME
 
-# Copy the Gemfile as well as the Gemfile.lock and install
-# the RubyGems. This is a separate step so the dependencies
-# will be cached unless changes to one of those two files
-# are made.
-COPY Gemfile Gemfile.lock ./
-RUN gem install bundler && bundle install --jobs 20 --retry 5
-
-# Copy the main application.
+# Copy the rails application.
 COPY . ./
+RUN echo "gem: --no-document" >> ~/.gemrc && \
+  gem install bundler --minimal-deps --no-document && \
+  bundle install --jobs 10 --retry 5 --path ./vendor/bundle
 
-# Heroku ignores this
 EXPOSE 3000
 
-# Run the app. CMD is required to run on Heroku
 CMD bundle exec puma -C config/puma.rb
