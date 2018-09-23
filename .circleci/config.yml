@@ -57,6 +57,11 @@ jobs:
       - image: mikescar/heroku-ruby-2.5:latest
     steps:
       - checkout
+
+      - restore_cache:
+          keys:
+            - ruby-2.5.1-bundle-{{ checksum "Gemfile.lock" }}
+
       - setup_remote_docker
 
       # TODO why is this not using primary image that already has Docker?
