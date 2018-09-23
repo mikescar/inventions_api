@@ -70,10 +70,15 @@ jobs:
             tar -xz -C /tmp -f /tmp/docker-$VER.tgz
             mv /tmp/docker/* /usr/bin
 
+      # https://circleci.com/docs/2.0/env-vars/#using-bash_env-to-set-environment-variables
+      - run:
+          name: Set versioned image tag
+          command:
+            echo 'export SOURCE_IMAGE="${CIRCLE_BRANCH}-${CIRCLE_BUILD_NUM}"' >> $BASH_ENV
+
       - run:
           name: Build docker image
-          command: |
-            export SOURCE_IMAGE="${CIRCLE_BRANCH}-${CIRCLE_BUILD_NUM}"
+          command:
             docker build --rm=false -t $SOURCE_IMAGE .
 
       - run:
