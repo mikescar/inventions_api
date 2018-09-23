@@ -15,8 +15,7 @@ jobs:
 
       # Restore bundle cache
       - restore_cache:
-          keys:
-            - {{ ruby -v }}-bundle-{{ checksum "Gemfile.lock" }}
+          key: {{ ruby -v }}-bundle-{{ checksum "Gemfile.lock" }}
 
       - run:
           name: Bundle Install
@@ -73,8 +72,7 @@ jobs:
       - checkout
 
       - restore_cache:
-          keys:
-            - {{ ruby -v }}-bundle-{{ checksum "Gemfile.lock" }}
+          key: {{ ruby -v }}-bundle-{{ checksum "Gemfile.lock" }}
 
       # https://circleci.com/docs/2.0/env-vars/#using-bash_env-to-set-environment-variables
       - run:
