@@ -4,6 +4,7 @@ set -e -o pipefail
 SOURCE_IMAGE=$1
 TARGET_IMAGE="registry.heroku.com/${APP_NAME_PRODUCTION}/web"
 
+echo Source image tag: $SOURCE_IMAGE
 docker tag $SOURCE_IMAGE $TARGET_IMAGE
 
 IMAGE_ID=$(docker inspect $TARGET_IMAGE --format={{.Id}} | cut -d':' -f2)

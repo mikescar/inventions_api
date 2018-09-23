@@ -73,7 +73,7 @@ jobs:
       - run:
           name: Build docker image
           command: |
-            SOURCE_IMAGE="${CIRCLE_BRANCH}-${CIRCLE_BUILD_NUM}"
+            export SOURCE_IMAGE="${CIRCLE_BRANCH}-${CIRCLE_BUILD_NUM}"
             docker build --rm=false -t $SOURCE_IMAGE .
 
       - run:
