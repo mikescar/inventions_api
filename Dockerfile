@@ -11,10 +11,10 @@ WORKDIR $APP_HOME
 
 # Copy the rails application.
 COPY . ./
-RUN bundle install --jobs 10 --retry 5
+RUN echo "gem: --no-document" >> ~/.gemrc && \
+  gem install bundler --minimal-deps --no-document && \
+  bundle install --jobs 10 --retry 5 --path ./vendor/bundle
 
-# Heroku ignores this
 EXPOSE 3000
 
-# Run the app. CMD is required to run on Heroku
 CMD bundle exec puma -C config/puma.rb
