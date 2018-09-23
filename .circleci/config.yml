@@ -16,11 +16,14 @@ jobs:
       # Restore bundle cache
       - restore_cache:
           keys:
-            - ruby-2.5.1-bundle-{{ checksum "Gemfile.lock" }}
+            - {{ ruby -v }}-bundle-{{ checksum "Gemfile.lock" }}
 
       - run:
           name: Bundle Install
-          command: bundle check || bundle install --path vendor/bundle
+          command: |
+            echo "gem: --no-document" >> ~/.gemrc
+            gem install bundler --minimal-deps
+            bundle install --jobs 10 --retry 5 --path ./vendor/bundle
 
       - run:
           name: Make test results directory
@@ -28,7 +31,7 @@ jobs:
 
       # Store bundle cache
       - save_cache:
-          key: ruby-2.5.1-bundle-{{ checksum "Gemfile.lock" }}
+          key: {{ ruby -v }}-bundle-{{ checksum "Gemfile.lock" }}
           paths:
             - ./vendor/bundle
 
@@ -71,7 +74,7 @@ jobs:
 
       - restore_cache:
           keys:
-            - ruby-2.5.1-bundle-{{ checksum "Gemfile.lock" }}
+            - {{ ruby -v }}-bundle-{{ checksum "Gemfile.lock" }}
 
       # https://circleci.com/docs/2.0/env-vars/#using-bash_env-to-set-environment-variables
       - run:
