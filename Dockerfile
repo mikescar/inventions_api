@@ -1,24 +1,25 @@
 FROM mikescar/heroku-ruby-2.5
 
 ENV APP_HOME /app
-# unprivileged account
-ENV USER unpriv
+ENV USER unprivileged
+ENV USER_AND_GROUP_ID 1001
+ENV BASH_PROFILE /home/$USER/.profile
 
-RUN mkdir -p $APP_HOME
-RUN useradd -m $USER && chown -R $USER $APP_HOME
+RUN groupadd -g $USER_AND_GROUP_ID $USER && \
+    useradd -m -r -s /bin/bash -u $USER_AND_GROUP_ID -g $USER $USER && \
+    mkdir -p $APP_HOME
 
 WORKDIR $APP_HOME
 
-# Copy the rails application.
+# Copy the rails app.
 COPY . ./
 
-RUN chown -R $USER ./
+RUN echo "gem: --no-document" >> ~/.gemrc && \
+    gem install bundler && \
+    bundle install --retry 5 --path ./vendor/bundle && \
+    chown -R $USER:$USER .
 
 USER $USER
-
-RUN echo "gem: --no-document" >> ~/.gemrc && \
-  gem install bundler --user --minimal-deps --no-document && \
-  bundle install --jobs 10 --retry 5 --path ./vendor/bundle
 
 EXPOSE 3000
 
