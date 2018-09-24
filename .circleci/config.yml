@@ -76,9 +76,10 @@ jobs:
 
       # https://circleci.com/docs/2.0/env-vars/#using-bash_env-to-set-environment-variables
       - run:
-          name: Set versioned image tag
+          name: Set tag version & RAILS_ENV
           command:
             echo 'export SOURCE_IMAGE="${CIRCLE_BRANCH}-${CIRCLE_BUILD_NUM}"' >> $BASH_ENV
+            echo 'export RAILS_ENV=production' >> $BASH_ENV
 
       - run:
           name: Build docker image

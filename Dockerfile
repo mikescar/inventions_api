@@ -1,12 +1,16 @@
-FROM mikescar/heroku-ruby-2.5
+FROM mikescar/heroku-ruby:2.5
 
 ENV APP_HOME /app
 ENV USER unprivileged
+ENV GROUP inventions
 ENV USER_AND_GROUP_ID 1001
-ENV BASH_PROFILE /home/$USER/.profile
+ENV PROFILE /home/$USER/.profile
+ENV BASHRC /home/$USER/.bashrc
 
-RUN groupadd -g $USER_AND_GROUP_ID $USER && \
-    useradd -m -r -s /bin/bash -u $USER_AND_GROUP_ID -g $USER $USER && \
+RUN groupadd -g $USER_AND_GROUP_ID $GROUP && \
+    useradd -m -r -s /bin/bash -u $USER_AND_GROUP_ID -g $GROUP $USER && \
+    echo "export GEM_HOME=~/.gem" >> $PROFILE && \
+    echo "export PATH=~/.gem/ruby/2.5.0/bin:$PATH" >> $PROFILE && \
     mkdir -p $APP_HOME
 
 WORKDIR $APP_HOME
@@ -14,13 +18,15 @@ WORKDIR $APP_HOME
 # Copy the rails app.
 COPY . ./
 
-# TODO do this install as $USER (some fuckery with (GEM_)PATH vars)
-RUN echo "gem: --no-document" >> ~/.gemrc && \
-    gem install bundler && \
-    bundle install --retry 5 --path ./vendor/bundle && \
-    chown -R $USER:$USER .
+RUN chown -R $USER:$GROUP .
 
-USER $USER
+SHELL ["/bin/bash", "--login", "-c"]
+
+USER $USER:$GROUP
+
+RUN echo "gem: --no-document" >> ~/.gemrc && \
+    gem install --user bundler && \
+    bundle install --retry 5 --path ./vendor/bundle
 
 EXPOSE 3000
 
