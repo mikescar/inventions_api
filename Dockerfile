@@ -14,6 +14,7 @@ WORKDIR $APP_HOME
 # Copy the rails app.
 COPY . ./
 
+# TODO do this install as $USER
 RUN echo "gem: --no-document" >> ~/.gemrc && \
     gem install bundler && \
     bundle install --retry 5 --path ./vendor/bundle && \
