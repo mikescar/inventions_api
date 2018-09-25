@@ -94,6 +94,10 @@ jobs:
           name: Push to AWS EC2 Container Registry
           command: ./bin/aws/docker-push-to-ecr.sh $SOURCE_IMAGE
 
+      - run:
+          name: Push to Azure Container Registry
+          command: ./bin/azure/docker-push.sh $SOURCE_IMAGE
+
 workflows:
   version: 2
   build-deploy:
