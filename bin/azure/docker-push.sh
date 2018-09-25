@@ -15,11 +15,16 @@ echo Image ID is: $IMAGE_ID
 docker login --username=$AZURE_SP_ID --password=$AZURE_SP_PASSWD $CR_DOMAIN
 docker push $TARGET_IMAGE
 
-# Deploy image to ACI
-# az container create \
-#     --resource-group demos \
-#     --name $APP_NAME_PRODUCTION \
-#     --image $IMAGE_ID \
-#     --registry-login-server mikescar.azurecr.io \
-#     --registry-username $AZURE_SP_ID \
-#     --registry-password $AZURE_SP_PASSWD
+# Deploy to Azure Container Instance
+APP_NAME=${APP_NAME_PRODUCTION}-${CIRCLE_BRANCH}
+
+az container create \
+  --resource-group demos \
+  --name $APP_NAME \
+  --image $TARGET_IMAGE \
+  --cpu 1 \
+  --memory 1 \
+  --registry-username $AZURE_SP_ID \
+  --registry-password $AZURE_SP_PASSWD \
+  --dns-name-label $APP_NAME \
+  --ports 80
