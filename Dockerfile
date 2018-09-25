@@ -27,7 +27,7 @@ USER $USER:$GROUP
 
 RUN echo "gem: --no-document" >> ~/.gemrc && \
     gem install --user bundler && \
-    bundle install --retry 5 --path ./vendor/bundle
+    bundle install --jobs=5 --retry 5 --path ./vendor/bundle
 
 EXPOSE 3000
 
