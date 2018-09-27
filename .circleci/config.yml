@@ -4,14 +4,15 @@ machine:
     - docker
 jobs:
   build:
-    docker: # run the steps with Docker
+    docker:
+      # run the steps within this image & env
       - image: mikescar/heroku-ruby-2.5:latest
         environment:
           RAILS_ENV: test
           DATABASE_URL_TEST: postgres://postgres@localhost:5432/postgres
       - image: postgres:10.4
     steps:
-      - checkout # git checkout to working directory
+      - checkout
 
       # Restore bundle cache
       - restore_cache:
@@ -28,7 +29,6 @@ jobs:
           name: Make test results directory
           command: mkdir ~/rspec
 
-      # Store bundle cache
       - save_cache:
           key: ruby-2.5.1-bundle-v2-{{ checksum "Gemfile.lock" }}
           paths:
@@ -128,11 +128,12 @@ jobs:
             docker tag ${APP_NAME_PRODUCTION} ${GCLOUD_REGISTRY_DOMAIN}/${GCLOUD_PROJECT_ID}/${APP_NAME_PRODUCTION}:${CIRCLE_SHA1}
             gcloud auth print-access-token | docker login -u oauth2accesstoken --password-stdin https://${GCLOUD_REGISTRY_DOMAIN}
             docker push ${GCLOUD_REGISTRY_DOMAIN}/${GCLOUD_PROJECT_ID}/${APP_NAME_PRODUCTION}:${CIRCLE_SHA1}
+
       - run:
           name: Deploy to Kubernetes (GKE)
           command: |
-            envsubst < ${HOME}/project/k8s.yml > ${HOME}/patched_k8s.yml
-            kubectl apply -f ${HOME}/patched_k8s.yml
+            envsubst < k8s.yml > patched_k8s.yml
+            kubectl apply -f patched_k8s.yml
             kubectl rollout status deployment/${APP_NAME_PRODUCTION}
 
 workflows:
