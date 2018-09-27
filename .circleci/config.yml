@@ -132,7 +132,7 @@ jobs:
       - run:
           name: Deploy to Kubernetes (GKE)
           command: |
-            envsubst < k8s.yml > patched_k8s.yml
+            envsubst < project/k8s.yml > patched_k8s.yml
             kubectl apply -f patched_k8s.yml
             kubectl rollout status deployment/${APP_NAME_PRODUCTION}
 
