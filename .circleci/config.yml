@@ -124,16 +124,16 @@ jobs:
               --build-arg COMMIT_HASH=${CIRCLE_SHA1} \
               --build-arg BRANCH=${CIRCLE_BRANCH} \
               --build-arg BUILD_DATE=`date -u +”%Y-%m-%dT%H:%M:%SZ”` \
-              -t ${$APP_NAME_PRODUCTION} .
-            docker tag ${$APP_NAME_PRODUCTION} ${GCLOUD_REGISTRY_DOMAIN}/${GCLOUD_PROJECT_ID}/${$APP_NAME_PRODUCTION}:${CIRCLE_SHA1}
+              -t ${APP_NAME_PRODUCTION} .
+            docker tag ${APP_NAME_PRODUCTION} ${GCLOUD_REGISTRY_DOMAIN}/${GCLOUD_PROJECT_ID}/${APP_NAME_PRODUCTION}:${CIRCLE_SHA1}
             gcloud auth print-access-token | docker login -u oauth2accesstoken --password-stdin https://${GCLOUD_REGISTRY_DOMAIN}
-            docker push ${GCLOUD_REGISTRY_DOMAIN}/${GCLOUD_PROJECT_ID}/${$APP_NAME_PRODUCTION}:${CIRCLE_SHA1}
+            docker push ${GCLOUD_REGISTRY_DOMAIN}/${GCLOUD_PROJECT_ID}/${APP_NAME_PRODUCTION}:${CIRCLE_SHA1}
       - run:
           name: Deploy to Kubernetes (GKE)
           command: |
             envsubst < ${HOME}/project/k8s.yml > ${HOME}/patched_k8s.yml
             kubectl apply -f ${HOME}/patched_k8s.yml
-            kubectl rollout status deployment/${$APP_NAME_PRODUCTION}
+            kubectl rollout status deployment/${APP_NAME_PRODUCTION}
 
 workflows:
   version: 2
