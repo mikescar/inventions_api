@@ -1,0 +1,51 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: ${APP_NAME_PRODUCTION}
+spec:
+  selector:
+    app: ${APP_NAME_PRODUCTION}
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 3000
+  type: LoadBalancer
+---
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: ${APP_NAME_PRODUCTION}
+  labels:
+    app: ${APP_NAME_PRODUCTION}
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: ${APP_NAME_PRODUCTION}
+  template:
+    metadata:
+      labels:
+        app: ${APP_NAME_PRODUCTION}
+    spec:
+      containers:
+      - name: ${APP_NAME_PRODUCTION}
+        image: ${GCLOUD_REGISTRY_DOMAIN}/${GCLOUD_PROJECT_ID}/${APP_NAME_PRODUCTION}:${CIRCLE_SHA1}
+        ports:
+        - name: http
+          containerPort: 3000
+          protocol: TCP
+        env:
+          - name: DATABASE_URL
+            valueFrom:
+              secretKeyRef:
+                name: database-urls
+                key: ${APP_NAME_PRODUCTION}
+          - name: RACK_ENV
+            value: production
+          - name: RAILS_ENV
+            value: production
+          - name: SECRET_KEY_BASE
+            valueFrom:
+              secretKeyRef:
+                name: secrets-inventions
+                key: secret_key_base
