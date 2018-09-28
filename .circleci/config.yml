@@ -1,3 +1,7 @@
+# This is intentionally a bit messy and not a very real-world example.
+# But it shows different ways of deploying within one config file,
+# and how multiple jobs can go into a workflow and be (in)dependent.
+
 version: 2
 machine:
   services:
