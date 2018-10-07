@@ -1,2 +1,2 @@
-#!/usr/bin/env bash
+#!/bin/sh
 bundle exec rails db:migrate
