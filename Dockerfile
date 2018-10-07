@@ -23,7 +23,7 @@ RUN echo "GEM_HOME=~/.gem" >> $PROFILE && \
     # chown $APP_USER:$APP_GROUP $PROFILE && \
     mkdir -p $APP_HOME
 
-RUN apk add build-base postgresql-dev
+RUN apk add build-base curl postgresql-dev
 
 WORKDIR $APP_HOME
 
