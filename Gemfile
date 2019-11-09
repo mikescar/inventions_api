@@ -11,7 +11,7 @@ gem 'rails', '~> 5.2'
 
 gem 'decent_exposure', '~> 3.0'
 gem 'pg'
-gem 'puma', '~> 3.7'
+gem 'puma', '~> 4.3'
 gem 'tzinfo-data'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 # gem 'jbuilder', '~> 2.5'
