@@ -5,11 +5,11 @@ orbs:
 jobs:
   build:
     docker:
-      - image: circleci/ruby:2.6.3-stretch-node
+      - image: ruby:2.6.6
         environment:
           RAILS_ENV: test
           DATABASE_URL_TEST: postgres://postgres@localhost:5432/postgres
-      - image: postgres:10.4
+      - image: postgres:13
     executor: ruby/default
     steps:
       - checkout
