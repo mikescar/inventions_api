@@ -1,8 +1,9 @@
 version: '3.7'
 services:
-  db:
+  docker-postgres:
     image: postgres:13
     environment:
+      POSTGRES_DB: inventions
       POSTGRES_PASSWORD: password
     ports:
       - "25432:5432"
@@ -15,7 +16,7 @@ services:
     ports:
       - '3000:3000'
     depends_on:
-      - db
+      - docker-postgres
     volumes:
       - .:/app
     working_dir: /app

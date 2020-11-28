@@ -8,8 +8,11 @@ jobs:
       - image: ruby:2.6.6
         environment:
           RAILS_ENV: test
-          DATABASE_URL_TEST: postgres://postgres@localhost:5432/postgres
+          DATABASE_URL_TEST: postgres://postgres:pwdNOW!@postgres:5432/inventions
       - image: postgres:13
+        environment:
+          POSTGRES_DB: inventions
+          POSTGRES_PASSWORD: pwdNOW!
     executor: ruby/default
     steps:
       - checkout

@@ -9,6 +9,8 @@ end
 
 gem 'rails', '~> 5.2'
 
+gem 'dotenv-rails', groups: [:development, :test]  # Needs to go before pg
+
 gem 'decent_exposure', '~> 3.0'
 gem 'pg'
 gem 'puma', '~> 4.3'
