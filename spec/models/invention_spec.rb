@@ -6,7 +6,7 @@ RSpec.describe Invention, type: :model do
   end
 
   let(:invention) do
-    Invention.new(title: Faker::Name.name, description: Faker::Lorem.sentence(2), bits: [bit])
+    Invention.new(title: Faker::Name.name, description: Faker::Lorem.sentence(word_count: 2), bits: [bit])
   end
 
   # Knowing that rails won't try to save if validation fails, just check the .valid? behavior

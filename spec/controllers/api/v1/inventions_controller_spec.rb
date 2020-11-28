@@ -13,8 +13,8 @@ RSpec.describe Api::V1::InventionsController, type: :controller do
   let(:required_params) do
     {
       bit_ids: [bit1.id, bit2.id],
-      description: Faker::Lorem.sentence(rand(1..10)),
-      title: Faker::Hipster.words(rand(3..10), true, true).join
+      description: Faker::Lorem.sentence(word_count: rand(1..10)),
+      title: Faker::Hipster.words(number: rand(3..10), supplemental: true, spaces_allowed: true).join
     }
   end
 
@@ -127,7 +127,7 @@ RSpec.describe Api::V1::InventionsController, type: :controller do
   end
 
   describe '#update' do
-    let(:new_title) { Faker::Lorem.words(6).join }
+    let(:new_title) { Faker::Lorem.words(number: 6).join }
     let(:new_email) { Faker::Internet.email }
 
     # Without this reload, specs checking for matching timestamps will fail
