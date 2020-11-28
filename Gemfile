@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-ruby '2.5.1'
+ruby '2.6.6'
 
 git_source(:github) do |repo_name|
   repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?('/')
@@ -8,6 +8,8 @@ git_source(:github) do |repo_name|
 end
 
 gem 'rails', '~> 5.2'
+
+gem 'dotenv-rails', groups: [:development, :test]  # Needs to go before pg
 
 gem 'decent_exposure', '~> 3.0'
 gem 'pg'

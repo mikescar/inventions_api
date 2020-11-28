@@ -1,22 +1,22 @@
-version: '3.6'
+version: '3.7'
 services:
-  db:
-    image: postgres:10.4
+  docker-postgres:
+    image: postgres:13
+    environment:
+      POSTGRES_DB: inventions
+      POSTGRES_PASSWORD: password
     ports:
-      - "5432:5432"
+      - "25432:5432"
     volumes:
       # Required to persist data instead of just starting with fresh postgres install every time.
       - ./docker/data/postgres:/var/lib/postgresql/data
   web:
     build: .
-    user: unprivileged
     command: puma
     ports:
       - '3000:3000'
     depends_on:
-      - db
-    env_file:
-      - docker/web.env
+      - docker-postgres
     volumes:
       - .:/app
     working_dir: /app
